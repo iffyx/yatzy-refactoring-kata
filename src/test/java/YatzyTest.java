@@ -1,110 +1,130 @@
 import org.junit.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class YatzyTest {
 
+    private Yatzy yatzy;
+    @Before
+    public void setUp(){
+        yatzy = new Yatzy();
+    }
+
     @Test
-    public void chance_scores_sum_of_all_dice() {
+    public void chanceScoresSumOfAllDiceTest() {
         int expected = 15;
-        int actual = Yatzy.chance(2,3,4,5,1);
+        int actual = yatzy.chance(createDicesList(2,3,4,5,1));
         assertEquals(expected, actual);
-        assertEquals(16, Yatzy.chance(3,3,4,5,1));
+        assertEquals(16, yatzy.chance(createDicesList(3,3,4,5,1)));
     }
 
-    @Test public void yatzy_scores_50() {
+
+    @Test public void yatzyScores50Test() {
         int expected = 50;
-        int actual = Yatzy.yatzy(4,4,4,4,4);
+        int actual = yatzy.yatzy(createDicesList(4,4,4,4,4));
         assertEquals(expected, actual);
-        assertEquals(50, Yatzy.yatzy(6,6,6,6,6));
-        assertEquals(0, Yatzy.yatzy(6,6,6,6,3));
+        assertEquals(50, yatzy.yatzy(createDicesList(6,6,6,6,6)));
+        assertEquals(0, yatzy.yatzy(createDicesList(6,6,6,6,3)));
     }
 
-    @Test public void test_1s() {
-        assertTrue(Yatzy.ones(1,2,3,4,5) == 1);
-        assertEquals(2, Yatzy.ones(1,2,1,4,5));
-        assertEquals(0, Yatzy.ones(6,2,2,4,5));
-        assertEquals(4, Yatzy.ones(1,2,1,1,1));
-    }
-
-    @Test
-    public void test_2s() {
-        assertEquals(4, Yatzy.twos(1,2,3,2,6));
-        assertEquals(10, Yatzy.twos(2,2,2,2,2));
+    @Test public void onesTest() {
+        assertTrue(yatzy.sumOfAKind(createDicesList(1,2,3,4,5), 1) == 1);
+        assertEquals(2, yatzy.sumOfAKind(createDicesList(1,2,1,4,5), 1));
+        assertEquals(0, yatzy.sumOfAKind(createDicesList(6,2,2,4,5), 1));
+        assertEquals(4, yatzy.sumOfAKind(createDicesList(1,2,1,1,1), 1));
     }
 
     @Test
-    public void test_threes() {
-        assertEquals(6, Yatzy.threes(1,2,3,2,3));
-        assertEquals(12, Yatzy.threes(2,3,3,3,3));
+    public void twosTest() {
+        assertEquals(4, yatzy.sumOfAKind(createDicesList(1,2,3,2,6), 2));
+        assertEquals(10, yatzy.sumOfAKind(createDicesList(2,2,2,2,2), 2));
     }
 
     @Test
-    public void fours_test() 
+    public void threesTest() {
+        assertEquals(6, yatzy.sumOfAKind(createDicesList(1,2,3,2,3), 3));
+        assertEquals(12, yatzy.sumOfAKind(createDicesList(2,3,3,3,3), 3));
+    }
+
+    @Test
+    public void foursTest()
     {
-        assertEquals(12, new Yatzy(4,4,4,5,5).fours());
-        assertEquals(8, new Yatzy(4,4,5,5,5).fours());
-        assertEquals(4, new Yatzy(4,5,5,5,5).fours());
+        assertEquals(12, yatzy.sumOfAKind(createDicesList(4,4,4,5,5), 4));
+        assertEquals(8, yatzy.sumOfAKind(createDicesList(4,4,5,5,5), 4));
+        assertEquals(4, yatzy.sumOfAKind(createDicesList(4,5,5,5,5), 4));
     }
 
     @Test
-    public void fives() {
-        assertEquals(10, new Yatzy(4,4,4,5,5).fives());
-        assertEquals(15, new Yatzy(4,4,5,5,5).fives());
-        assertEquals(20, new Yatzy(4,5,5,5,5).fives());
+    public void fivesTest() {
+        assertEquals(10, yatzy.sumOfAKind(createDicesList(4,4,4,5,5), 5));
+        assertEquals(15, yatzy.sumOfAKind(createDicesList(4,4,5,5,5), 5));
+        assertEquals(20, yatzy.sumOfAKind(createDicesList(4,5,5,5,5), 5));
     }
 
     @Test
-    public void sixes_test() {
-        assertEquals(0, new Yatzy(4,4,4,5,5).sixes());
-        assertEquals(6, new Yatzy(4,4,6,5,5).sixes());
-        assertEquals(18, new Yatzy(6,5,6,6,5).sixes());
+    public void sixesTest() {
+        assertEquals(0, yatzy.sumOfAKind(createDicesList(4,4,4,5,5), 6));
+        assertEquals(6, yatzy.sumOfAKind(createDicesList(4,4,6,5,5), 6));
+        assertEquals(18, yatzy.sumOfAKind(createDicesList(6,5,6,6,5), 6));
     }
 
     @Test
-    public void one_pair() {
-        assertEquals(6, Yatzy.scorePair(3,4,3,5,6));
-        assertEquals(10, Yatzy.scorePair(5,3,3,3,5));
-        assertEquals(12, Yatzy.scorePair(5,3,6,6,5));
+    public void onePairTest() {
+        assertEquals(6, yatzy.numberOfAKind(createDicesList(3,4,3,5,6), 2));
+        assertEquals(10, yatzy.numberOfAKind(createDicesList(5,3,3,3,5), 2));
+        assertEquals(12, yatzy.numberOfAKind(createDicesList(5,3,6,6,5), 2));
     }
 
     @Test
-    public void two_Pair() {
-        assertEquals(16, Yatzy.twoPair(3,3,5,4,5));
-        assertEquals(16, Yatzy.twoPair(3,3,5,5,5));
+    public void twoPairTest() {
+        assertEquals(16, yatzy.twoPair(createDicesList(3,3,5,4,5)));
+        assertEquals(16, yatzy.twoPair(createDicesList(3,3,5,5,5)));
     }
 
     @Test
-    public void three_of_a_kind() 
+    public void threeOfAKind()
     {
-        assertEquals(9, Yatzy.threeOfAKind(3,3,3,4,5));
-        assertEquals(15, Yatzy.threeOfAKind(5,3,5,4,5));
-        assertEquals(9, Yatzy.threeOfAKind(3,3,3,3,5));
+        assertEquals(9, yatzy.numberOfAKind(createDicesList(3,3,3,4,5), 3));
+        assertEquals(15, yatzy.numberOfAKind(createDicesList(5,3,5,4,5), 3));
+        assertEquals(9, yatzy.numberOfAKind(createDicesList(3,3,3,3,5), 3));
     }
 
     @Test
-    public void four_of_a_knd() {
-        assertEquals(12, Yatzy.fourOfAKind(3,3,3,3,5));
-        assertEquals(20, Yatzy.fourOfAKind(5,5,5,4,5));
-        assertEquals(9, Yatzy.threeOfAKind(3,3,3,3,3));
+    public void fourOfAKindTest() {
+        assertEquals(12, yatzy.numberOfAKind(createDicesList(3,3,3,3,5), 4));
+        assertEquals(20, yatzy.numberOfAKind(createDicesList(5,5,5,4,5), 4));
     }
 
     @Test
-    public void smallStraight() {
-        assertEquals(15, Yatzy.smallStraight(1,2,3,4,5));
-        assertEquals(15, Yatzy.smallStraight(2,3,4,5,1));
-        assertEquals(0, Yatzy.smallStraight(1,2,2,4,5));
+    public void smallStraightTest() {
+        assertEquals(15, yatzy.straight(createDicesList(1,2,3,4,5), 4));
+        assertEquals(15, yatzy.straight(createDicesList(2,3,4,5,1), 4));
+        assertEquals(0, yatzy.straight(createDicesList(1,2,2,4,5), 4));
     }
 
     @Test
-    public void largeStraight() {
-        assertEquals(20, Yatzy.largeStraight(6,2,3,4,5));
-        assertEquals(20, Yatzy.largeStraight(2,3,4,5,6));
-        assertEquals(0, Yatzy.largeStraight(1,2,2,4,5));
+    public void largeStraightTest() {
+        assertEquals(20, yatzy.straight(createDicesList(6,2,3,4,5), 5));
+        assertEquals(20, yatzy.straight(createDicesList(2,3,4,5,6), 5));
+        assertEquals(0, yatzy.straight(createDicesList(1,2,2,4,5), 5));
     }
 
     @Test
-    public void fullHouse() {
-        assertEquals(18, Yatzy.fullHouse(6,2,2,2,6));
-        assertEquals(0, Yatzy.fullHouse(2,3,4,5,6));
+    public void fullHouseTest() {
+        assertEquals(18, yatzy.fullHouse(createDicesList(6,2,2,2,6)));
+        assertEquals(0, yatzy.fullHouse(createDicesList(2,3,4,5,6)));
+    }
+
+    public List<Dice> createDicesList(int dice1, int dice2, int dice3, int dice4, int dice5){
+        List<Dice> dices = new ArrayList<>();
+        dices.add(new Dice(dice1));
+        dices.add(new Dice(dice2));
+        dices.add(new Dice(dice3));
+        dices.add(new Dice(dice4));
+        dices.add(new Dice(dice5));
+
+        return dices;
     }
 }

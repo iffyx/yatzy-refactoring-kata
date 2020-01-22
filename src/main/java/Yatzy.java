@@ -42,7 +42,8 @@ public class Yatzy {
     public int sumOfAKind(List<Dice> dicesResults, int kindNumber) {
         int sum = 0;
         for (Dice result : dicesResults) {
-            if (result.getRollResult() == kindNumber) sum += kindNumber;
+            if (result.getRollResult() == kindNumber)
+                sum += kindNumber;
         }
         return sum;
     }
@@ -58,7 +59,7 @@ public class Yatzy {
     public int straight(List<Dice> dicesResults, int highestDiceResult) {
         int[] tallies = getTallies(dicesResults);
         if (isStraight(tallies, highestDiceResult))
-            return (highestDiceResult - 2) * 5;
+            return (highestDiceResult - 1) * 5;
         return 0;
     }
 
