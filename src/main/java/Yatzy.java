@@ -12,7 +12,7 @@ public class Yatzy {
 
     public int chance(List<Integer> dicesResults) {
         int sum = 0;
-        for(Integer result : dicesResults) {
+        for (Integer result : dicesResults) {
             sum += result;
         }
         return sum;
@@ -20,7 +20,7 @@ public class Yatzy {
 
     public int yatzy(List<Integer> dicesResults) {
         int[] tallies = new int[6];
-        for(Integer result : dicesResults) {
+        for (Integer result : dicesResults) {
             tallies[result - 1]++;
         }
         for (int i = 0; i < 6; i++)
@@ -31,34 +31,34 @@ public class Yatzy {
 
     public int sumsOfAKind(List<Integer> dicesResults, int kindNumber) {
         int sum = 0;
-        for(Integer result : dicesResults) {
-            if(result == kindNumber) sum += kindNumber;
+        for (Integer result : dicesResults) {
+            if (result == kindNumber) sum += kindNumber;
         }
         return sum;
     }
 
-    public int scorePair(List<Integer> dicesResults) {
+    public int numberOfAKind(List<Integer> dicesResults, int kindNumber) {
         int[] tallies = new int[6];
-        for(Integer result : dicesResults) {
+        for (Integer result : dicesResults) {
             tallies[result - 1]++;
         }
-        for (int i = 0; i != 6; i++)
-            if (tallies[6 - i - 1] >= 2)
-                return (6 - i) * 2;
+        for (int i = 5; i >= 0; i--)
+            if (tallies[i] >= kindNumber)
+                return (i + 1) * kindNumber;
         return 0;
     }
 
     public int twoPair(List<Integer> dicesResults) {
         int[] tallies = new int[6];
-        for(Integer result : dicesResults) {
+        for (Integer result : dicesResults) {
             tallies[result - 1]++;
         }
         int n = 0;
         int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (tallies[6 - i - 1] >= 2) {
+        for (int i = 5; i >= 0; i--)
+            if (tallies[i] >= 2) {
                 n++;
-                score += (6 - i);
+                score += (i + 1);
             }
         if (n == 2)
             return score * 2;
@@ -66,31 +66,9 @@ public class Yatzy {
             return 0;
     }
 
-    public int fourOfAKind(List<Integer> dicesResults) {
-        int[] tallies = new int[6];
-        for(Integer result : dicesResults) {
-            tallies[result - 1]++;
-        }
-        for (int i = 0; i < 6; i++)
-            if (tallies[i] >= 4)
-                return (i + 1) * 4;
-        return 0;
-    }
-
-    public int threeOfAKind(List<Integer> dicesResults) {
-        int[] tallies = new int[6];
-        for(Integer result : dicesResults) {
-            tallies[result - 1]++;
-        }
-        for (int i = 0; i < 6; i++)
-            if (tallies[i] >= 3)
-                return (i + 1) * 3;
-        return 0;
-    }
-
     public int smallStraight(List<Integer> dicesResults) {
         int[] tallies = new int[6];
-        for(Integer result : dicesResults) {
+        for (Integer result : dicesResults) {
             tallies[result - 1]++;
         }
         if (tallies[0] == 1 &&
@@ -104,7 +82,7 @@ public class Yatzy {
 
     public int largeStraight(List<Integer> dicesResults) {
         int[] tallies = new int[6];
-        for(Integer result : dicesResults) {
+        for (Integer result : dicesResults) {
             tallies[result - 1]++;
         }
         if (tallies[1] == 1 &&
@@ -124,7 +102,7 @@ public class Yatzy {
         boolean _3 = false;
         int _3_at = 0;
 
-        for(Integer result : dicesResults) {
+        for (Integer result : dicesResults) {
             tallies[result - 1]++;
         }
 
