@@ -1,12 +1,11 @@
+package com.yatzy;
+
 import java.util.List;
 
 public class Yatzy {
 
     private static final int YATZY_SCORE = 50;
     private static final int NUMBER_OF_DICES = 5;
-
-    public Yatzy() {
-    }
 
     public int chance(List<Dice> dicesResults) {
         int sum = 0;
@@ -65,9 +64,11 @@ public class Yatzy {
 
     public int fullHouse(List<Dice> dicesResults) {
         int[] tallies = getTallies(dicesResults);
-        boolean pairOccurs, threeOccurs;
+        boolean pairOccurs;
+        boolean threeOccurs;
         pairOccurs = threeOccurs = false;
-        int pairDiceValue, threeDiceValue;
+        int pairDiceValue;
+        int threeDiceValue;
         pairDiceValue = threeDiceValue = 0;
 
         for (int i = NUMBER_OF_DICES; i >= 0; i--) {

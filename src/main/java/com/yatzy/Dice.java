@@ -1,3 +1,5 @@
+package com.yatzy;
+
 public class Dice {
     private int rollResult;
 
@@ -14,7 +16,7 @@ public class Dice {
     }
 
     public void throwDice() {
-        // TODO: Random dice throw.
+        // Random dice throw.
     }
 }
 

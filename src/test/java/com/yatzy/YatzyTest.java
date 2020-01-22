@@ -1,3 +1,7 @@
+package com.yatzy;
+
+import com.yatzy.Dice;
+import com.yatzy.Yatzy;
 import org.junit.*;
 import java.util.ArrayList;
 import java.util.List;
