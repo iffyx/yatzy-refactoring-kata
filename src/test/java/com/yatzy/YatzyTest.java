@@ -1,7 +1,5 @@
 package com.yatzy;
 
-import com.yatzy.Dice;
-import com.yatzy.Yatzy;
 import org.junit.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,8 @@ public class YatzyTest {
     }
 
 
-    @Test public void yatzyScores50Test() {
+    @Test
+    public void yatzyScores50Test() {
         int expected = 50;
         int actual = yatzy.yatzy(createDicesList(4,4,4,4,4));
         assertEquals(expected, actual);
